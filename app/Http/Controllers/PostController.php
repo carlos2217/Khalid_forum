@@ -13,13 +13,6 @@ use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
-    public function __construct()
-    {
-        // $this->middleware(['trahs'], ['except' => [
-        //     'create',
-        //     'update',
-        // ]]);
-    }
     public function index()
     {
         // dd(Post::Myposts()->withTrashed()->get());
