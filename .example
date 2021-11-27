@@ -1,0 +1,282 @@
+/////////// Install laravel in to you laptop:
+First: check if you have a composer by typing ( composer -v ) in to your cmd.
+Second: instal larvel in to your laptop by typing ( composer globl require laravel/installer ) in to your cmd.
+thierd: select in wiche directory you want to install laravel by typing ( cd ../example ).
+fourth: to create laravel into the directry you selected type ( laravel new "prjectname" ).
+fifth: go to the file you created and type (code .) to opne it in a text editer.
+sixth: to view it into a browser type ( php artisan serve or php -S 127.0.0.1:9000 -t public/ ).
+
+////////////// slug
+composer require laravel/helpers
+
+////////////// links
+bootstrap css
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+bootsrap js
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
+cdn trix js
+<script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.js" integrity="sha512-/1nVu72YEESEbcmhE/EvjH/RxTg62EKvYWLG3NdeZibTCuEtW5M4z3aypcvsoZw03FAopi94y04GhuqRU9p+CQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+cdn trix css
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.css" integrity="sha512-CWdvnJD7uGtuypLLe5rLU3eUAkbzBR3Bm1SFPEaRfvXXI2v2H5Y0057EMTzNuGGRIznt8+128QIDQ8RqmHbAdg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+trix Editer form
+<form …>
+    <input id="x" type="hidden" name="content">
+    <trix-editor input="x"></trix-editor>
+</form>
+flatpiker js
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+flatpinker css
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+select2 js
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+select2 css
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+show to use select2
+<select class="js-example-basic-multiple" name="states[]" multiple="multiple">
+    <option value="AL">Alabama</option>
+    ...
+    <option value="WY">Wyoming</option>
+</select>
+$(document).ready(function() {
+$('.js-example-basic-multiple').select2();
+});
+///////////// slug
+composer require laravel/helpers
+
+//////////laravel gravater
+step1: inclue this code ( "thomaswelton/laravel-gravatar": "~1.0" ) in compuser.json undre require array
+step2: run ( composer update )
+setp3: inclue this code ( 'Gravatar' => Thomaswelton\LaravelGravatar\Facades\Gravatar::class ) in config/app.js under aliases array
+setp4: to use gravatar use e.g.( {{ Gravatar::src($user->email) }} )
+
+////////////// disqus
+step1: goto disqus website and login create new site with you project name
+step2: copy the Universal Code pest in your website
+step3: modify Universal Code
+step4: Replace PAGE_URL with your page's canonical URL variable: this.page.url = "{{ config('app.url') }}/blog/{{$post->id}}";
+step5: Replace PAGE_IDENTIFIER with your page's unique identifier variable: this.page.identifier = "{{$post->id}}";
+
+////////////// yajra data table
+step1: run this command ( composer require yajra/laravel-datatables-oracle )
+step2: go to config/app.php add this line ( Yajra\DataTables\DataTablesServiceProvider::class, ) in providers
+step3: create controller for it. the code for the index function
+public function index(Request $request)
+{
+if ($request->ajax()) {
+$data = User::select('*');
+return Datatables::of($data)
+->addIndexColumn()
+->addColumn('action', function ($row) {
+$btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
+return $btn;
+})
+->rawColumns(['action'])
+->make(true);
+}
+return view('users');
+}
+step4: create view. the code for the view
+<table class="table table-bordered data-table">
+    <thead>
+        <tr>
+            <th>No</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th width="100px">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+<script type="text/javascript">
+    $(function() {
+        var table = $('.data-table').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: "{{ route('users.index') }}",
+            columns: [{
+                    data: 'id',
+                    name: 'id'
+                },
+                {
+                    data: 'name',
+                    name: 'name'
+                },
+                {
+                    data: 'email',
+                    name: 'email'
+                },
+                {
+                    data: 'action',
+                    name: 'action',
+                    orderable: false,
+                    searchable: false
+                },
+            ]
+        });
+    });
+</script>
+
+////////////// database Notifications
+step1: run this command ( php artisan notification:table )
+step2: run this command ( php artisan migrate )
+step3: Create notification Class ( php artisan make:notification "ClassName" )
+step4: in the notification class write this
+use Queueable;
+public function __construct($var)
+{
+$this->var = $var;
+}
+public function via($notifiable)
+{
+return ['Database'];
+}
+public function toArray($notifiable)
+{
+return [
+"name"=>$this->var->name,
+"Quantity"=>$this->var->quantity,
+"created_at"=>$this->var->created_at,
+"ditals"=>"New Product Has Been Added With This Following Details"
+];
+}
+stem5: in the controller write this line in the function you want ( $not = Auth::user()->notify(new "notification class Name"($var)); )
+
+////////////// Auth
+composer require laravel/ui
+php artisan ui vue --auth or php artisan ui bootstrap --auth
+php artisan migrate
+
+////////////// multi Auth
+step1: create new Laravel App and database.
+step2: run this command ( composer require laravel/breeze --dev ).
+step3: run this command ( php artisan breeze:install ).
+step4: run this command ( npm install && npm run dev ).
+step5: run this command ( composer require santigarcor/laratrust ).
+step6: run this command ( php artisan vendor:publish --tag="laratrust" ).
+step7: run this command ( php artisan laratrust:setup ).
+step8: run this command ( php artisan laratrust:seeder ).
+step9: run this command ( php artisan vendor:publish --tag="laratrust-seeder" ).
+step10: run this command ( composer dump-autoload ).
+step11: Go to database/seeders/Databaseseeder.php inside run function pest this ( $this->call(LaratrustSeeder::class); ).
+step12: run this command ( php artisan migrate ).
+step13: to fill the role table with info run this command ( php artisan db:seed ).
+step14: to attach role to the user use this line of code ( $user->attachRole($admin); )
+App\Http\Controllers\Auth\registerusercontroller.
+step15: create rouat and a dashboardController
+Route::group(['middleware' => ['auth']],function(){
+Route::get('/dashboard','App\Http\Controller\DashboardController@index')->name('dashboard');
+});
+
+
+
+//////////////// API auth
+Step 1: setup database in .env file.
+Step 2:Install Laravel Sanctum: composer require laravel/sanctum.
+Step 3:Publish the Sanctum configuration and migration files: php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider".
+Step 4:Run your database migrations: php artisan migrate.
+Step 5:Add the Sanctum's middleware go to ../app/Http/Kernel.php and paste: use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;.
+and add { EnsureFrontendRequestsAreStateful::class } at The application's route middleware groups. under api.
+Step 6:To use tokens for users: import { use Laravel\Sanctum\HasApiTokens; } in the User model and user it HasApiTokens.
+Step 7:Let's create the seeder for the User model: in the comand type {php artisan make:seeder UsersTableSeeder}.
+Step 8:Now let's insert as record: import use Illuminate\Support\Facades\DB; and use Illuminate\Support\Facades\Hash;
+and type the folwing cond into the run function
+DB::table('users')->insert([
+'name' => 'John Doe',
+'email' => 'john@doe.com',
+'password' => Hash::make('password')
+]);
+Step 9:To seed users table with user: type in the prompt { php artisan db:seed --class=UsersTableSeeder }.
+Step 10: create a controller nad /login route in the routes/api.php file: import model and use Illuminate\Support\Facades\Hash; into your controller
+and past the folwing code in the index punction
+$user= User::where('email', $request->email)->first();
+// print_r($data);
+if (!$user || !Hash::check($request->password, $user->password)) {
+return response([
+'message' => ['These credentials do not match our records.']
+], 404);
+}
+
+$token = $user->createToken('my-app-token')->plainTextToken;
+
+$response = [
+'user' => $user,
+'token' => $token
+];
+
+return response($response, 201);
+Step 11: Test with postman, Result will be below:
+{
+"user": {
+"id": 1,
+"name": "John Doe",
+"email": "john@doe.com",
+"email_verified_at": null,
+"created_at": null,
+"updated_at": null
+},
+"token": "AbQzDgXa..."
+}
+
+////////////// HTML and forms
+$ composer require laravelcollective/html
+
+////////////// edtor
+1_ composer require unisharp/laravel-ckeditor
+
+////////////// controllers
+First: to creadte a controller if type ( php artisan make:controller HomeController ) into your cmd or comandermenal.
+
+//////////// mysqlid in vbcode
+First: go to edit the system environment.
+Second: click environment variable.
+third: double click PASTH.
+fourth: click new and faste ( C:\xampp\mysql\bin ) and seve.
+fivth: type in your cmd ( mysql -u root).
+
+//////////////// migration
+To create migration: type in the cmd (php artisan make:migration create_tableName-table).
+
+migration INFI
+migrate:fresh Drop all tables and re-run all migrations
+migrate:install Create the migration repository
+migrate:refresh Reset and re-run all migrations
+migrate:reset Rollback all database migrations
+migrate:rollback Rollback the last database migration
+migrate:status Show the status of each migration
+
+/////////// Models
+
+To create a model ( php artisan make:model Model_Name ).
+
+//////////// Elequent model
+Use ( $var = ModleName::all() ) to dispaly all the record in the database table.
+Use ( $var = ModleName::orderby("colName")->get() ) to display all record in the database order by colmun passed.
+Use ( $var = ModleName::orderby("colName")->take(2)->get() )
+Use ( $var = ModleName::orderby("colName")-paginate(1) ) {{ $var->links() }}
+(
+to custom paginatie
+step1: run ( php artisan vendor:publish )
+setp2: type the number of the paginat
+)
+Use ( $var = ModleName::where('colmunName', '$record')->get() ) to display record where is equel to.
+Use ( $var = ModleName::latest()->get() ) returns the latest item in the table
+Use ( $var = ModelName::where("colmunName","like","%".'$record'."%")->get();
+Use ( $var = ModleName::find($id) ) to select from the table where id is equeal to $id.
+Use ( $var = ModleName::findOrFail($id) ) to select from the table where id is equeal to $id and of it is not found display 404 page.
+Use ( $var->save() ) to dave into the databasese.
+Use ( $var->delete() ) to delete the record from the databases.
+////////////////////// constract
+1- laravel migration foreign
+*$table->unsignedInteger('user_id');
+*$table->foreign('user_id')->references('id')->on('users');
+2- laravel migraion not null
+*$table->string('foo')->nullable(false)->change();
+3-laravel unique multiple columns
+*$table->unique(['mytext', 'user_id']);
+////////////// middleware
+public function __construct(){
+$this->middleware('auth',['except'=>['index','show']]);
+}
