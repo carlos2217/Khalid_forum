@@ -17,22 +17,34 @@ Route::get('/', "App\Http\Controllers\BlogController@index")->name('welcome');
 Route::get('/blog/{post}', "App\Http\Controllers\BlogController@show")->name('blog.show');
 Route::get('/blog/{tag}/tag', "App\Http\Controllers\BlogController@tag")->name('blog.tag');
 Route::get('/blog/{category}/category', "App\Http\Controllers\BlogController@category")->name('blog.category');
+
+Route::get('/descussions', "App\Http\Controllers\DiscussionController@index")->name('discussions');
 Auth::routes();
 
 
 route::group(["prefix" => "dashboard", "middleware" => "auth"], function () {
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    // route::group(function () {
-    route::get('posts', 'App\Http\Controllers\PostController@index')->name('posts.index');
-    route::get('posts/c&&e', 'App\Http\Controllers\PostController@create')->name('posts.create')->middleware('create.post');
-    route::get('posts/c&&e/{post}/edit', 'App\Http\Controllers\PostController@edit')->name('post.edit');
-    route::put('posts/c&&e/{post}/edit-post', 'App\Http\Controllers\PostController@update')->name('post.update');
-    route::get('posts/c&&e/{post}/delete-post', 'App\Http\Controllers\PostController@destroy')->name('post.destroy');
-    route::get('posts/{post}', 'App\Http\Controllers\PostController@show')->name('post.show');
-    route::post('posts/c&&e/store-post', 'App\Http\Controllers\PostController@store')->name('post.store');
-    route::get('trahded-posts/', 'App\Http\Controllers\PostController@poststrashed')->name('posts.trashed')->middleware('trash');
-    route::put('trahded-posts/{posts}/restore', 'App\Http\Controllers\PostController@restore')->name('post.resore');
-    // });
+    route::group(['prefix' => '/blog/panel'], function () {
+        route::get('/', 'App\Http\Controllers\HomeController@blog')->name('blog');
+        route::get('posts', 'App\Http\Controllers\PostController@index')->name('posts.index');
+        route::get('posts/c&&e', 'App\Http\Controllers\PostController@create')->name('posts.create')->middleware('create.post');
+        route::get('posts/c&&e/{post}/edit', 'App\Http\Controllers\PostController@edit')->name('post.edit');
+        route::put('posts/c&&e/{post}/edit-post', 'App\Http\Controllers\PostController@update')->name('post.update');
+        route::get('posts/c&&e/{post}/delete-post', 'App\Http\Controllers\PostController@destroy')->name('post.destroy');
+        route::get('posts/{post}', 'App\Http\Controllers\PostController@show')->name('post.show');
+        route::post('posts/c&&e/store-post', 'App\Http\Controllers\PostController@store')->name('post.store');
+        route::get('trahded-posts/', 'App\Http\Controllers\PostController@poststrashed')->name('posts.trashed')->middleware('trash');
+        route::put('trahded-posts/{posts}/restore', 'App\Http\Controllers\PostController@restore')->name('post.resore');
+    });
+    route::group(['prefix' => '/discussion/panel'], function () {
+        route::get('/', 'App\http\Controllers\HomeController@discussion')->name('discussion');
+        route::get('/discussions', 'App\http\Controllers\DiscussionController@index')->name('discussion.index');
+        route::get('/discussions/c&&e', 'App\http\Controllers\DiscussionController@create')->name('discussion.create');
+        route::post('/discussions/c&&e/store-discussion', 'App\http\Controllers\DiscussionController@store')->name('discussion.store');
+        route::get('/discussions/{discussion}', 'App\http\Controllers\DiscussionController@show')->name('discussion.show');
+        route::get('discussions/c&&e/{discussion}/delete-post', 'App\Http\Controllers\DiscussionController@destroy')->name('discussion.destroy');
+        route::get('discussions/c&&e/{discussion}/edit', 'App\Http\Controllers\DiscussionController@edit')->name('discussion.edit');
+    });
     // route::group(function () {
     route::get('categories', 'App\Http\Controllers\CategoryController@index')->name('categories.index');
     route::get('categories/{category}/edit', 'App\Http\Controllers\CategoryController@edit')->name('category.edit');

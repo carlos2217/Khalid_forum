@@ -69,7 +69,7 @@
                                 <a href="{{route('welcome')}}">Blog</a>
                             </li>
                             <li class="">
-                                <a href="">VIDEOS</a>
+                                <a href="{{route('discussions')}}">Discussions</a>
                             </li>
                             @guest
                             @if (Route::has('login'))

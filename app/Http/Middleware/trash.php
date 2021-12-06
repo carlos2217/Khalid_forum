@@ -19,7 +19,7 @@ class trash
     {
         if (Post::onlyTrashed()->count() == 0) {
             session()->flash('error', "No Posts In The Trash");
-            return redirect()->route("posts.index");
+            return redirect()->route("blog");
         }
         return $next($request);
     }

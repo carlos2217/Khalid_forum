@@ -30,7 +30,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ route('home') }}">
                     {{ $setting->site_name}}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -40,7 +40,15 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{{route('home')}}">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{{route('blog')}}">Blog <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{{route('discussion')}}">Discussions <span class="sr-only">(current)</span></a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -85,54 +93,8 @@
         </nav>
 
         <main class="py-4 container">
-            @auth
-            <div class="row">
-                <div class="col-md-4">
-                    @if(auth()->user()->role == 'admin')
-                    <div class="card mb-3 text-light">
-                        <div class="card-header bg-dark">Admin</div>
-                        <div class="card-body">
-                            <ul class="list-group">
-                                <li class="list-group-item">
-                                    <a href="{{route('admin.allusers')}}">All Users</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <a href="{{route('admin.setting.edit',$setting->id)}}">Settings</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    @endif
-                    <div class="card">
-                        <div class="card-header">Witer</div>
-                        <div class="card-body">
-                            <ul class="list-group">
-                                <li class="list-group-item">
-                                    <a href="{{route('welcome')}}">Home</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <a href="{{route('posts.index')}}">Posts</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <a href="{{route('categories.index')}}">Category</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <a href="{{route('tags.index')}}">Tag</a>
-                                </li>
-                                <li class="list-group-item mt-5">
-                                    <a href="{{route('posts.trashed')}}">Post Trash</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-8">
-                    @yield('content')
-                </div>
-            </div>
-            @else
+
             @yield('content')
-            @endauth
         </main>
     </div>
 </body>

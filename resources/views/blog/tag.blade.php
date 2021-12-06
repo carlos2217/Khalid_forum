@@ -1,4 +1,4 @@
-@extends('layouts.blog')
+@extends('layouts.frontend')
 @section('content')
 <!-- ... End Header -->
 

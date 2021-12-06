@@ -24,11 +24,11 @@ class PostController extends Controller
     {
         // dd(Post::Myposts()->withTrashed()->get());
         // dd(Post::Myposts()->onlyTrashed()->get());
-        return view('posts.index')->with('posts', Post::Myposts());
+        return view('dashboard.blog.index')->with('posts', Post::Myposts());
     }
     public function create()
     {
-        return view('posts.c&&e');
+        return view('dashboard.blog.c&&e');
     }
     public function store(PostCreate $request)
     {
@@ -50,11 +50,11 @@ class PostController extends Controller
     }
     public function show(Post $post)
     {
-        return view('posts.show')->with('post', $post);
+        return view('dashboard.blog.show')->with('post', $post);
     }
     public function edit(Post $post)
     {
-        return view('posts.c&&e')->with('post', $post);
+        return view('dashboard.blog.c&&e')->with('post', $post);
     }
     public function update(PostUpdate $request, Post $post)
     {
@@ -96,7 +96,7 @@ class PostController extends Controller
     }
     public function poststrashed()
     {
-        return view('posts.trashed')->with('posts', Post::onlyTrashed()->Myposts());
+        return view('dashboard.blog.trashed')->with('posts', Post::onlyTrashed()->Myposts());
     }
     public function restore($id)
     {
