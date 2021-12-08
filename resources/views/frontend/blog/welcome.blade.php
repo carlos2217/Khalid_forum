@@ -1,4 +1,7 @@
 @extends('layouts.frontend')
+@section('title')
+{{$setting->site_name}}
+@endsection
 @section('content')
 <div class="header-spacer"></div>
 
@@ -180,6 +183,6 @@
     </div>
 </div>
 @stop
-@section('title')
-{{$setting->site_name}}
-@endsection
+@section('footer')
+@include('inc.footer')
+@stop

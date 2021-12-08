@@ -1,4 +1,8 @@
 @extends('layouts.frontend')
+
+@section('title')
+{{$post->slug}}
+@stop
 @section('content')
 <!-- ... End Header -->
 
@@ -225,6 +229,6 @@
 
 <!-- Footer -->
 @stop
-@section('title')
-{{$post->slug}}
+@section('footer')
+@include('inc.footer')
 @stop

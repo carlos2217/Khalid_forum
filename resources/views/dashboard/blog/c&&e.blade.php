@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section('title')
+Create And Updated
+@stop
 @section('content')
 @include('inc.messages')
 <div class="card">
@@ -75,7 +77,4 @@
         $('.js-example-basic-multiple').select2();
     });
 </script>
-@stop
-@section('title')
-Create And Updated
 @stop

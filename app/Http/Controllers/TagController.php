@@ -11,7 +11,7 @@ class TagController extends Controller
 {
     public function index()
     {
-        return view('tags.index');
+        return view('dashboard.tags.index');
     }
     public function store(TagCreate $request)
     {
@@ -25,7 +25,7 @@ class TagController extends Controller
     }
     public function edit(Tag $tag)
     {
-        return view('tags.edit')->with('tag', $tag);
+        return view('dashboard.tags.edit')->with('tag', $tag);
     }
     public function update(TagUpdate $request, Tag $tag)
     {

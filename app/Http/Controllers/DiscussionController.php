@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Discussion\CreateDiscussion;
+use App\Http\Requests\Discussion\UpdateDiscussion;
 use App\Models\Channel;
 use App\Models\Discussion;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class DiscussionController extends Controller
@@ -47,7 +49,29 @@ class DiscussionController extends Controller
     }
     public function edit(Discussion $discussion)
     {
-        return view('dashboard.discussion.c&&e')->with('discussion', $discussion);
+        return view('dashboard.discussion.c&&e', [
+            'discussion' => $discussion,
+            'channels' => Channel::all(),
+        ]);
+    }
+    public function update(UpdateDiscussion $request, Discussion $discussion)
+    {
+        if ($request->hasFile('discussion_image')) {
+            Storage::delete($discussion->discussion_image);
+            $image = $request->discussion_image->store('discussion_image');
+        } else {
+            $image = $discussion->discussion_image;
+        }
+        Auth()->user()->discussions()->update([
+            "title" => $request->title,
+            "description" => $request->description,
+            "content" => $request->content,
+            "slug" => str_slug($request->title),
+            "channel_id" => $request->channel_id,
+            "discussion_image" => $image,
+        ]);
+        session()->flash('success', 'Descussion Updated Successfly');
+        return redirect()->route('discussion.index');
     }
     public function destroy($id)
     {
@@ -61,6 +85,20 @@ class DiscussionController extends Controller
             $discussion->delete();
         }
         session()->flash("success", 'Post Deleted');
+        return redirect()->route('discussion.index');
+    }
+    public function trash()
+    {
+        // dd(Discussion::onlyTrashed()->get());
+        return view('dashboard.discussion.trash', [
+            'discussions' => Discussion::onlyTrashed()->get(),
+        ]);
+    }
+    public function restore($id, Discussion $discussion)
+    {
+        $discussion = Discussion::withTrashed()->where('slug', $id)->firstOrFail();
+        $discussion->restore();
+        session()->flash("success", 'Discussion Restored');
         return redirect()->route('discussion.index');
     }
 }

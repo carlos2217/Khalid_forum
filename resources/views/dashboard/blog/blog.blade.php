@@ -8,23 +8,13 @@
         <div class="card">
             <div class="card-header">Blog Post</div>
             <div class="card-body">
-                <ul class="list-group">
-                    <li class="list-group-item">
-                        <a href="{{route('welcome')}}">Welcome Page</a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="{{route('posts.index')}}">Posts</a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="{{route('categories.index')}}">Category</a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="{{route('tags.index')}}">Tag</a>
-                    </li>
-                    <li class="list-group-item mt-5">
-                        <a href="{{route('posts.trashed')}}">Post Trash</a>
-                    </li>
-                </ul>
+                <div class="list-group">
+                    <a href="{{route('welcome')}}" class="list-group-item list-group-item-action">Posts Page</a>
+                    <a href="{{route('posts.index')}}" class="list-group-item list-group-item-action">Posts</a>
+                    <a href="{{route('categories.index')}}" class="list-group-item list-group-item-action">Category</a>
+                    <a href="{{route('tags.index')}}" class="list-group-item list-group-item-action">Tag</a>
+                    <a href="{{route('posts.trashed')}}" class="list-group-item list-group-item-action">Post Trash</a>
+                </div>
             </div>
         </div>
     </div>

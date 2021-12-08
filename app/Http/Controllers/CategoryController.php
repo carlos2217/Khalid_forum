@@ -13,7 +13,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        return view('categories.index');
+        return view('dashboard.categories.index');
     }
     public function store(CategoryCreate $request)
     {
@@ -26,7 +26,7 @@ class CategoryController extends Controller
     }
     public function edit(Category $category)
     {
-        return view('categories.edit')->with('category', $category);
+        return view('dashboard.categories.edit')->with('category', $category);
     }
     public function update(CategoryUpdate $request, Category $category)
     {

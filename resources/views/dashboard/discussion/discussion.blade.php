@@ -14,24 +14,22 @@
                     @forelse ($channels as $channel)
                     <a href="#" class="list-group-item list-group-item-action">{{$channel->title}}</a>
                     @empty
-                        <p class="text-center">
-                            no channels
-                        </p>
+                    <p class="text-center">
+                        no channels
+                    </p>
                     @endforelse
-                    </div>
+                </div>
             </div>
         </div>
         <div class="card">
             <div class="card-header">Discussions</div>
             <div class="card-body">
                 <div class="list-group">
-                    
-                        <a href="{{route('welcome')}}" class="list-group-item list-group-item-action">Welcome Page</a>
-                        <a href="{{route('discussion.index')}}" class="list-group-item list-group-item-action">Discussions</a>
-                        <a href="{{route('categories.index')}}" class="list-group-item list-group-item-action">Category</a>
-                        <a href="{{route('tags.index')}}" class="list-group-item list-group-item-action">Tag</a>
-                        <a href="{{route('posts.trashed')}}" class="list-group-item list-group-item-action mb-3">Post Trash</a>
-                    
+
+                    <a href="{{route('discussions')}}" class="list-group-item list-group-item-action">Discussion Page</a>
+                    <a href="{{route('discussion.index')}}" class="list-group-item list-group-item-action">Discussions</a>
+                    <a href="{{route('discussion.trashed')}}" class="list-group-item list-group-item-action mb-3">Post Trash</a>
+
                 </div>
             </div>
         </div>

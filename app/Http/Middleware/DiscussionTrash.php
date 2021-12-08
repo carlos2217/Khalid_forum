@@ -2,11 +2,11 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Post;
+use App\Models\Discussion;
 use Closure;
 use Illuminate\Http\Request;
 
-class trash
+class DiscussionTrash
 {
     /**
      * Handle an incoming request.
@@ -17,9 +17,9 @@ class trash
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Post::onlyTrashed()->count() == 0) {
-            session()->flash('error', "No Posts In The Trash");
-            return redirect()->route("blog");
+        if (Discussion::onlyTrashed()->count() == 0) {
+            session()->flash('error', "No Discussions In The Trash");
+            return redirect()->route("discussion");
         }
         return $next($request);
     }

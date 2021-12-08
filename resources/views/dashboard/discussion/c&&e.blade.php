@@ -11,16 +11,19 @@
                     {{isset($discussion)? "Edit Discussion":"Create Discussion"}}
                 </div>
                 <div class="card-body">
-                    <form action="{{route('discussion.store')}}" method="post" enctype="multipart/form-data">
+                    <form action="{{isset($discussion)?route('discussion.update',$discussion->slug):route('discussion.store')}}" method="post" enctype="multipart/form-data">
                         @csrf
+                        @if(isset($discussion))
+                        @method('PUT')
+                        @endif
                         <div class="form-group">
-                            <input type="text" name="title" class="form-control" value="{{old('title')}}" placeholder="Discussion Title" required>
+                            <input type="text" name="title" class="form-control" value="{{isset($discussion)?$discussion->title:old('title')}}" placeholder="Discussion Title" required>
                         </div>
                         <div class="form-group">
-                            <textarea name="description" id="" cols="5" rows="5" class="form-control" required>{{old('description')}}</textarea>
+                            <textarea name="description" id="" cols="5" rows="5" class="form-control" required>{{isset($discussion)?$discussion->description:old('description')}}</textarea>
                         </div>
                         <div class="form-group">
-                            <input id="content" type="hidden" name="content" value="{{old('content')}}">
+                            <input id="content" type="hidden" name="content" value="{{isset($discussion)?$discussion->content:old('content')}}">
                             <trix-editor input="content"></trix-editor>
                         </div>
                         <div class="input-group mb-3">
@@ -29,14 +32,17 @@
                             </div>
                             <select class="custom-select" name="channel_id" id="inputGroupSelect01">
                                 @foreach($channels as $channel)
-                                <option value="{{$channel->id}}">{{$channel->title}}</option>
+                                <option value="{{$channel->id}}" @if(isset($discussion)) @if($discussion->channel_id == $channel->id) selected @endif @endif>{{$channel->title}}</option>
                                 @endforeach
                             </select>
                         </div>
+                        @if(isset($discussion))
+                        <img src="/storage/{{ $discussion->discussion_image }}" alt="{{ $discussion->title }}" width="100%">
+                        @endif
                         <div class="form-group">
                             <input type="file" name="discussion_image" class="form-control">
                         </div>
-                        <button type="submit" class="btn btn-primary">Create</button>
+                        <button type="submit" class="btn btn-primary">{{isset($discussion)?'Update':'Create'}}</button>
                     </form>
                 </div>
             </div>

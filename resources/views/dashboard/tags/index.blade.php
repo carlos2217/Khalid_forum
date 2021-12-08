@@ -10,7 +10,7 @@
         Create Tag
     </div>
     <div class="card-body">
-        <form action="{{route('tag.store')}}" method="post">
+        <form action="{{route('tag.store')}}" method="post" autocomplete="off">
             @csrf
             <div class="form-group">
                 <label for="name">Tag</label>

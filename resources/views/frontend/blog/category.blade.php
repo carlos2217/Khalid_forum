@@ -1,4 +1,7 @@
 @extends('layouts.frontend')
+@section('title')
+Category
+@stop
 @section('content')
 <!-- ... End Header -->
 
@@ -112,6 +115,6 @@
 
 </div>
 @stop
-@section('title')
-Category
+@section('footer')
+@include('inc.footer')
 @stop

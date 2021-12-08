@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Discussion extends Model
 {
     use HasFactory, SoftDeletes;
-    protected $fillable = ['user_id', 'title', 'slug', 'description', 'content', 'discussion_image', 'channel_id'];
+    protected $fillable = ['user_id', 'bestReply', 'title', 'slug', 'description', 'content', 'discussion_image', 'channel_id'];
     public function getRouteKeyName()
     {
         return 'slug';
@@ -24,5 +24,9 @@ class Discussion extends Model
     public function auther()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+    public function channel()
+    {
+        return $this->belongsTo(Channel::class);
     }
 }

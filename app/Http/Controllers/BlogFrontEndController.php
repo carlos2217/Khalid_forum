@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Tag;
+use Illuminate\Http\Request;
 
-class BlogController extends Controller
+class BlogFrontEndController extends Controller
 {
     public function index()
     {
@@ -19,7 +19,7 @@ class BlogController extends Controller
             $first_post =  Post::orderBy('created_at', 'desc')->take(1)->get();
         }
         $posts = Post::simplePaginate(6);
-        return view('blog.welcome', [
+        return view('frontend.blog.welcome', [
             'first_post' => $first_post,
             'posts' => $posts,
         ]);
@@ -27,11 +27,11 @@ class BlogController extends Controller
     public function show(Post $post)
     {
         // dd($post);
-        return view('blog.show')->with('post', $post);
+        return view('frontend.blog.show')->with('post', $post);
     }
     public function tag(Tag $tag)
     {
-        return view('blog.tag', [
+        return view('frontend.blog.tag', [
             'tag' => $tag,
         ]);
     }
@@ -39,7 +39,7 @@ class BlogController extends Controller
     {
         // $category = Category::simplePaginate(1)->where('slug', $id)->get();
         // dd($category);
-        return view('blog.category', [
+        return view('frontend.blog.category', [
             'category' => $category,
         ]);
     }
