@@ -17,7 +17,7 @@ class CreateProfilesTable extends Migration
             $table->id();
             // $table->string('user_email')->unique();
             $table->string('user_id');
-            $table->string('about')->nullable();
+            $table->text('about')->nullable();
             $table->string('gravater')->nullable();
             $table->string('facebook')->nullable();
             $table->string('youtube')->nullable();

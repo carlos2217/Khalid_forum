@@ -14,7 +14,7 @@ class AdminController extends Controller
 {
     public function allusers()
     {
-        return view('admin.allusers')->with('users', User::orderby("created_at")->get());
+        return view('dashboard.admin.allusers')->with('users', User::orderby("created_at")->get());
     }
     public function makeAsAdmin(User $user)
     {
@@ -32,13 +32,13 @@ class AdminController extends Controller
     }
     public function profile(Profile $profile)
     {
-        return view('admin.profile', [
+        return view('dashboard.admin.profile', [
             'profile' => $profile,
         ]);
     }
     public function profileEdit(Profile $profile)
     {
-        return view('admin.profileedit', [
+        return view('dashboard.admin.profileedit', [
             'profile' => $profile,
         ]);
     }
@@ -66,7 +66,7 @@ class AdminController extends Controller
     }
     public function settingEdit(Setting $setting)
     {
-        return view('admin.setting')->with('setting', $setting);
+        return view('dashboard.admin.setting')->with('setting', $setting);
     }
     public function settingUpdate(SettingUpdate $request, Setting $setting)
     {

@@ -6,66 +6,9 @@
 <div class="header-spacer"></div>
 
 <div class="container">
-    <div class="row">
-        <div class="col-lg-2"></div>
-        <div class="col-lg-8">
-            @foreach($first_post as $first_post)
-            @if($first_post->count() > 0)
-            <article class="hentry post post-standard has-post-thumbnail sticky">
-
-                <div class="post-thumb">
-                    <img src="/storage/{{$first_post->post_image}}" width="100%" height="30%" alt="{{$first_post->title}}">
-                    <div class="overlay"></div>
-                    <a href="/storage/{{$first_post->post_image}}" class="link-image js-zoom-image">
-                        <i class="seoicon-zoom"></i>
-                    </a>
-                    <a href="#" class="link-post">
-                        <i class="seoicon-link-bold"></i>
-                    </a>
-                </div>
-                <div class="post__content">
-                    <div class="post__content-info">
-                        <h2 class="post__title entry-title ">
-                            <a href="{{route('blog.show',$first_post->slug)}}">{{$first_post->title}}</a>
-                        </h2>
-                        <div class="post-additional-info">
-                            <span class="post__date">
-                                <i class="seoicon-clock"></i>
-                                <time class="published" datetime="2016-04-17 12:00:00">
-                                    April 17, 2016
-                                </time>
-                            </span>
-                            <span class="category">
-                                <i class="seoicon-tags"></i>
-                                @foreach($first_post->tags as $post)
-                                <a href="{{route('blog.tag',$post->slug)}}">
-                                    <span class="">{{$post->name}},</span>
-                                </a>
-                                @endforeach
-                            </span>
-
-                            <span class="post__comments">
-                                <a href="{{route('blog.category',$first_post->category->slug)}}">
-                                    <i class="fa fa-comment-o" aria-hidden="true"></i>
-                                    {{$first_post->category->title}}
-                                </a>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
-            </article>
-            @else
-            NO Post Found
-            @endif
-            @endforeach
-        </div>
-        <div class="col-lg-2"></div>
-    </div>
 
     <div class="row">
         @foreach($posts as $post)
-        @if($first_post->id != $post->id)
         <div class="col-lg-6">
             <article class="hentry post post-standard has-post-thumbnail sticky">
                 <div class="post-thumb">
@@ -87,7 +30,7 @@
                             <span class="post__date">
                                 <i class="seoicon-clock"></i>
                                 <time class="published" datetime="2016-04-17 12:00:00">
-                                    April 17, 2016
+                                    {{$post->created_at->diffForHumans()}}
                                 </time>
                             </span>
                             <span class="category">
@@ -110,7 +53,6 @@
 
             </article>
         </div>
-        @endif
         @endforeach
     </div>
     {{$posts->links()}}

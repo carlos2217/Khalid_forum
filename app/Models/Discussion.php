@@ -4,7 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 
 class Discussion extends Model
 {
@@ -28,5 +30,44 @@ class Discussion extends Model
     public function channel()
     {
         return $this->belongsTo(Channel::class);
+    }
+    public function replies()
+    {
+        return $this->hasMany(Reply::class);
+    }
+    public function best_Reply()
+    {
+        return $this->belongsTo(Reply::class, "bestReply");
+    }
+    public function watchers()
+    {
+        return $this->hasMany(Watcher::class);
+    }
+    public function is_watcher()
+    {
+        $id = Auth::id();
+        $watchers = array();
+        foreach ($this->watchers as $watcher) :
+            array_push($watchers, $watcher->user_id);
+        endforeach;
+
+        if (in_array($id, $watchers)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function is_Open()
+    {
+        $result = false;
+
+        foreach ($this->replies as $reply) {
+            if ($reply->best_reply) {
+                $result = true;
+                break;
+            }
+        }
+        // dd($result);
+        return $result;
     }
 }

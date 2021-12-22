@@ -14,13 +14,12 @@ class BlogFrontEndController extends Controller
         $search = request()->query('search');
         if ($search) {
             // dd($search);
-            $first_post = Post::where('title', 'like', "%{$search}%")->get();
+            $posts = Post::where('title', 'like', "%{$search}%")->get();
         } else {
-            $first_post =  Post::orderBy('created_at', 'desc')->take(1)->get();
+            $posts =  Post::all();
         }
         $posts = Post::simplePaginate(6);
         return view('frontend.blog.welcome', [
-            'first_post' => $first_post,
             'posts' => $posts,
         ]);
     }

@@ -8,8 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Channel extends Model
 {
     use HasFactory;
-    public function discussion()
+    public function getRouteKeyName()
     {
-        return $this->belongsTo(Discussion::class);
+        return 'slug';
+    }
+    public function discussions()
+    {
+        return $this->hasMany(Discussion::class);
     }
 }

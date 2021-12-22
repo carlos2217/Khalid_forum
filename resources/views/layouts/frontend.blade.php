@@ -167,7 +167,7 @@
         <div class="container">
             <div class="row">
                 <div class="form_search-wrap">
-                    <form action="" method="get">
+                    <form action="" method="get" autocomplete="off">
                         <input name="search" class="overlay_search-input" placeholder="Type and hit Enter..." type="text">
                         <a href="#" class="overlay_search-close">
                             <span></span>

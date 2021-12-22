@@ -15,8 +15,6 @@ class PostController extends Controller
 {
     public function index()
     {
-        // dd(Post::Myposts()->withTrashed()->get());
-        // dd(Post::Myposts()->onlyTrashed()->get());
         return view('dashboard.blog.index')->with('posts', Post::Myposts());
     }
     public function create()

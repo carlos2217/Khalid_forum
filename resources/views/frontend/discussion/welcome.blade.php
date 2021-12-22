@@ -4,13 +4,13 @@ Discussion
 @stop
 @section('content')
 <div class="row">
+    @foreach($discussions as $discussion)
     <div class="col-lg-6">
-        @foreach($discussions as $discussion)
         <article class="hentry post post-standard has-post-thumbnail sticky">
             <div class="post-thumb">
                 <img src="/storage/{{$discussion->discussion_image}}" alt="seo">
                 <div class="overlay"></div>
-                <a href="#" class="link-image js-zoom-image">
+                <a href="/storage/{{$discussion->discussion_image}}" class="link-image js-zoom-image">
                     <i class="seoicon-zoom"></i>
                 </a>
                 <a href="#" class="link-post">
@@ -31,19 +31,43 @@ Discussion
                         </span>
                         <span class="category">
                             <i class="seoicon-tags"></i>
-                            <a href="#">
+                            <a href="{{route('discussions.channel',$discussion->channel->slug)}}">
                                 {{$discussion->channel->title}}
                             </a>
                         </span>
                         <span class="post__comments">
                             <a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i></a>
-                            6
+                            @if($discussion->best_reply)
+                            Close
+                            @else
+                            Open
+                            @endif
+                        </span>
+                        <span class="post__comments">
+                            <a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i></a>
+                            replies <span>{{$discussion->replies->count()}}</span>
                         </span>
                     </div>
+                    @include('inc.watch')
                 </div>
             </div>
         </article>
-        @endforeach
     </div>
+    @endforeach
 </div>
+@stop
+@section('css')
+<style>
+    .watch {
+        background-color: green;
+        color: white;
+        cursor: pointer;
+    }
+
+    .unwatch {
+        background-color: red;
+        color: white;
+        cursor: pointer;
+    }
+</style>
 @stop

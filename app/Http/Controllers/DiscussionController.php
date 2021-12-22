@@ -6,6 +6,7 @@ use App\Http\Requests\Discussion\CreateDiscussion;
 use App\Http\Requests\Discussion\UpdateDiscussion;
 use App\Models\Channel;
 use App\Models\Discussion;
+use App\Models\Reply;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -100,5 +101,11 @@ class DiscussionController extends Controller
         $discussion->restore();
         session()->flash("success", 'Discussion Restored');
         return redirect()->route('discussion.index');
+    }
+    public function bestReply(Discussion $discussion, Reply $reply)
+    {
+        $discussion->bestReply = $reply->id;
+        $discussion->save();
+        return redirect()->back();
     }
 }

@@ -39,6 +39,7 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
+                    @auth
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active">
                             <a class="nav-link" href="{{route('home')}}">Home <span class="sr-only">(current)</span></a>
@@ -50,9 +51,11 @@
                             <a class="nav-link" href="{{route('discussion')}}">Discussions <span class="sr-only">(current)</span></a>
                         </li>
                     </ul>
+                    @endauth
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
+
                         <!-- Authentication Links -->
                         @guest
                         @if (Route::has('login'))
@@ -67,6 +70,16 @@
                         </li>
                         @endif
                         @else
+                        <li class="nav-item active mr-3">
+                            <a class="nav-link" href="{{route('notificaion.index')}}">
+                                <button type="button" class="btn btn-primary position-relative">
+                                    Notifications
+                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                        {{auth()->user()->unreadnotifications->count()}}
+                                    </span>
+                                </button>
+                            </a>
+                        </li>
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->name }}

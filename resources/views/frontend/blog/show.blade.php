@@ -50,7 +50,7 @@
                                     <i class="seoicon-clock"></i>
 
                                     <time class="published" datetime="2016-03-20 12:00:00">
-                                        March 20, 2016
+                                        {{$post->created_at->diffForHumans()}}
                                     </time>
 
                                 </span>
